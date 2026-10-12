@@ -1,8 +1,26 @@
 import { Link } from 'react-router-dom'
 import Input from './Input'
+import { api } from '../api/api'
 
 const CreateItem = () => {
-    const handleSubmit = () => {}
+    
+    
+    const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const item = {
+        title: e.target.title.value,
+        description: e.target.description.value ,
+        price: e.target.price.value ,
+        imageUrl: e.target.imageUrl.value
+    }
+    try{
+        await api.getItem(item)
+    }catch (error) {
+    console.error(error)
+    }
+    }
+
     return (
         <div className="container">
             <div class="page-header">
@@ -85,7 +103,7 @@ const CreateItem = () => {
                     </div>
 
                     <div class="form-actions">
-                        <Link href="/" class="btn-cancel">
+                        <Link to="/" class="btn-cancel">
                             Отмена
                         </Link>
                         <button type="submit" class="btn-submit">
