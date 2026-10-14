@@ -30,7 +30,7 @@ const loginUser = async (user) => {
 
 const itemsPage = async () => {
     const res = await apiInstance.get("/items")
-    return res
+    return res.data
 }
 
 const getItem = async (item) => {
@@ -38,13 +38,39 @@ const getItem = async (item) => {
     return res
 }
 
+const sendItems = async () => {
+    const res = await apiInstance.get("/items", item)
+    return res.data
+}//tov
 
+const getStats = async (item) => {
+    const res = await apiInstance.post("/stats")
+    return res
+}
 
+const getItemBids = async (id) => {
+    const res = await apiInstance.post(`/items/${id}/bids`)
+    return res.data
+}//all stavki
 
+const createBid = async ({id, amount}) => {
+    const res = await apiInstance.post(`/items/${id}/bids`, {amount})
+    return res.data
+}//sdelat stavky
+
+const deleteItems = async (id) => {
+    const res = await apiInstance.delete(`/items/${id}`)
+    return res.data
+}
 
 export const api = {
     registerUser,
     loginUser,
     getItem,
-    itemsPage
+    itemsPage,
+    sendItems,
+    getStats,
+    getItemBids,
+    createBid,
+    deleteItems
 }

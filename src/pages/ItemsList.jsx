@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react'
 import ItemCard from '../components/ItemCard'
 import { api } from '../api/api'
+import { useItemStore } from "../store/useItemStore"
 
 const ItemsList = () => {
-  
-
-    const [items, setItems] = useState([])
-    const [error, setError] = useState('')
+    const items = useItemStore((State) => state.items)
+    const getItems = useItemStore((state) => state.getItems)
+    const [stats, setStats] = useState()
 
     useEffect(() => {
-    async function itemsPage() {
-        setError("")
-        try{
-        const data = await api.itemsPage()
-        setItems(data.data)
-        }catch (error) {}
-        
-    }
-    itemsPage()
-    }, []) 
+        async function loadStats() {
+            try {
+                const data = await api.getStats()
+                setStats(data) 
+            } catch (error) {
+                console.error(error)
+            }
+        }
 
+    getItems()
+    loadStats()
+}, [])
     return (
         <div className="container">
             <div class="page-header">
@@ -45,7 +46,7 @@ const ItemsList = () => {
             </div>
 
             <div class="items-grid">
-                {items.map((item, i) => (
+                {items?.map((item, i) => (
                     <ItemCard key={i} {...item} />
                 ))}
             </div>
