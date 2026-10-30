@@ -1,8 +1,26 @@
+import { useEffect, useState } from 'react'
 import ItemCard from '../components/ItemCard'
+import { api } from '../api/api'
+import { useItemStore } from "../store/useItemStore"
 
 const ItemsList = () => {
-    const items = []
+    const items = useItemStore((state) => state.items)
+    const getItems = useItemStore((state) => state.getItems)
+    const [stats, setStats] = useState()
 
+    useEffect(() => {
+        async function loadStats() {
+            try {
+                const data = await api.getStats()
+                setStats(data) 
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+    getItems()
+    loadStats()
+}, [])
     return (
         <div className="container">
             <div class="page-header">
@@ -28,7 +46,7 @@ const ItemsList = () => {
             </div>
 
             <div class="items-grid">
-                {items.map((item, i) => (
+                {items?.map((item, i) => (
                     <ItemCard key={i} {...item} />
                 ))}
             </div>
