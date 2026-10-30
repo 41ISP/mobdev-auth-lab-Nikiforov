@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from './Input'
 import { api } from '../api/api'
 
 const CreateItem = () => {
+    const navigate = useNavigate()
     
     
     const handleSubmit = async (e) => {
@@ -15,7 +16,8 @@ const CreateItem = () => {
         imageUrl: e.target.imageUrl.value
     }
     try{
-        await api.getItem(item)
+        await api.sendItems(item)
+        navigate('/')
     }catch (error) {
     console.error(error)
     }

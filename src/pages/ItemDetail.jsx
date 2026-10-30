@@ -3,7 +3,8 @@ import Input from "../components/Input"
 import Button from "../components/Button"
 
 const ItemDetail = () => {
-    const handleBid = () => {}
+    const handleBid = (e) => { e.preventDefault() }
+    const ItemShow = {} // TODO: загрузить товар через api.getItemDetails(id)
     
     return (
         <div className="container">

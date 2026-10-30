@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import Button from '../components/Button'
 import Input from '../components/Input'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useUserStore } from '../store/useUserStore'
 import { api } from '../api/api'
 
 const Register = () => {
     const [error, setError] = useState('')
+    const navigate = useNavigate()
+    const setSession = useUserStore((state) => state.setSession)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,6 +26,8 @@ const Register = () => {
 
         try {
             const data = await api.registerUser(user)
+            setSession(data.data)
+            navigate('/')
         } catch (error) {
             setError(error.response.data.error)
             console.error(error)

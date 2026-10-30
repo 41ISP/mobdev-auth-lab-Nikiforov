@@ -33,23 +33,23 @@ const itemsPage = async () => {
     return res.data
 }
 
-const getItem = async (item) => {
+const sendItems = async (item) => {
     const res = await apiInstance.post("/items", item)
-    return res
+    return res.data
 }
 
-const sendItems = async () => {
-    const res = await apiInstance.get("/items", item)
+const getItemDetails = async (id) => {
+    const res = await apiInstance.get(`/items/${id}`)
     return res.data
-}//tov
+}
 
-const getStats = async (item) => {
-    const res = await apiInstance.post("/stats")
-    return res
+const getStats = async () => {
+    const res = await apiInstance.get("/stats")
+    return res.data
 }
 
 const getItemBids = async (id) => {
-    const res = await apiInstance.post(`/items/${id}/bids`)
+    const res = await apiInstance.get(`/items/${id}/bids`)
     return res.data
 }//all stavki
 
@@ -66,7 +66,7 @@ const deleteItems = async (id) => {
 export const api = {
     registerUser,
     loginUser,
-    getItem,
+    getItemDetails,
     itemsPage,
     sendItems,
     getStats,

@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { api } from "../api/api"
 
 
 export const useUserStore = create()(
@@ -12,7 +11,7 @@ export const useUserStore = create()(
 
         }),
         {
-            name: "user-store",
+            name: "user-storage",
             storage: createJSONStorage(() => localStorage),
         },
     ),

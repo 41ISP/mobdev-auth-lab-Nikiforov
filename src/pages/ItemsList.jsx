@@ -4,7 +4,7 @@ import { api } from '../api/api'
 import { useItemStore } from "../store/useItemStore"
 
 const ItemsList = () => {
-    const items = useItemStore((State) => state.items)
+    const items = useItemStore((state) => state.items)
     const getItems = useItemStore((state) => state.getItems)
     const [stats, setStats] = useState()
 
